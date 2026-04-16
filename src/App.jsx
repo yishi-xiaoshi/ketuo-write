@@ -301,7 +301,7 @@ function ModelLoader({ progress, onLoaded, error, rawErrorText, onRetry }) {
 
 // ─── 五步进度条组件 ────────────────────────────────────────
 function StepProgress({ currentStep, totalSteps = 5 }) {
-  const labels = ['可拓建模', '发散分析', '共轭深挖', '可拓变换', '成文'];
+  const labels = ['可拓建模', '发散分析', '共轭深挖', '可拓变换', '收敛成文'];
   const items = [];
   for (let i = 0; i < totalSteps; i++) {
     const num = i + 1;
@@ -603,7 +603,7 @@ function parseToMindMap(step, content) {
     return { title: '🌳 发散树思维导图', branches, centerColor: '#4ade80' };
   }
   
-  // 步骤3：共轭分析 - 虚实/软硬/潜显/负正
+  // 步骤3：共轭深挖 - 虚实/软硬/潜显/负正
   if (step === 3) {
     const branches = [];
     const patterns = [
@@ -647,13 +647,15 @@ function parseToMindMap(step, content) {
     return { title: '🔍 共轭部思维导图', branches, centerColor: '#60a5fa' };
   }
   
-  // 步骤4：可拓变换 - 替换/增删/拆合/传导
+  // 步骤4：可拓变换 - 置换/增删/扩缩/分解/复制/传导
   if (step === 4) {
     const branches = [];
     const patterns = [
-      { key: '替换变换', icon: '🔄', regex: /替换[^：：]*[：:]\s*([^#]+?)(?=增删|拆合|传导|$)/gis },
+      { key: '置换变换', icon: '🔄', regex: /替换[^：：]*[：:]\s*([^#]+?)(?=增删|拆合|传导|$)/gis },
       { key: '增删变换', icon: '➕', regex: /增删[^：：]*[：:]\s*([^#]+?)(?=替换|拆合|传导|$)/gis },
-      { key: '拆合变换', icon: '🔗', regex: /拆合[^：：]*[：:]\s*([^#]+?)(?=替换|增删|传导|$)/gis },
+      { key: '扩缩变换', icon: '🔍', regex: /扩缩[^：：]*[：:]\s*([^#]+?)(?=替换|增删|传导|$)/gis },
+      { key: '分解变换', icon: '🔗', regex: /分解[^：：]*[：:]\s*([^#]+?)(?=替换|增删|传导|$)/gis },
+      { key: '复制变换', icon: '🔗', regex: /拆合[^：：]*[：:]\s*([^#]+?)(?=替换|增删|传导|$)/gis },
       { key: '传导变换', icon: '⚡', regex: /传导[^：：]*[：:]\s*([^#]+?)(?=替换|增删|拆合|$)/gis },
     ];
     
@@ -896,7 +898,7 @@ function ModuleWritingApp({ onIncrementEssays }) {
             📚 可拓写作应用
           </h3>
           <p style={{ color: 'rgba(232,224,200,0.4)', fontSize: '12px' }}>
-            选择真题，AI 五步逐步分析 · 思维导图呈现
+            选择真题，可拓五步逐步分析 · 思维导图呈现
           </p>
         </div>
       </div>
@@ -1062,7 +1064,7 @@ function ModuleWritingApp({ onIncrementEssays }) {
           color: 'rgba(232,224,200,0.5)', fontSize: '13px', marginBottom: '16px'
         }}>
           <Loader2 size={20} className="spin" style={{ marginBottom: '8px' }} />
-          <div>AI 分析中，请稍候...</div>
+          <div>可拓分析中，请稍候...</div>
           <button
             onClick={pauseAnalysis}
             style={{
@@ -1282,7 +1284,7 @@ function ModuleCustomTopic({ onIncrementEssays, onTopicAnalyzed }) {
       
       if (isPaused) return;
       
-      // 步骤3：共轭分析
+      // 步骤3：共轭深挖
       setLoadingStep(3);
       const step3 = FIVE_STEPS[2];
       const userMsg3 = { role: 'user', content: `${FIVE_STEPS[0].name}结果：\n${result1}\n\n${FIVE_STEPS[1].name}结果：\n${result2}\n\n${'─'.repeat(20)}\n\n${step3.prompt(title)}` };
@@ -1306,7 +1308,7 @@ function ModuleCustomTopic({ onIncrementEssays, onTopicAnalyzed }) {
       
       if (isPaused) return;
       
-      // 步骤5：成文
+      // 步骤5：收敛成文
       setLoadingStep(5);
       const step5 = FIVE_STEPS[4];
       const userMsg5 = { role: 'user', content: `${FIVE_STEPS[0].name}结果：\n${result1}\n\n${FIVE_STEPS[1].name}结果：\n${result2}\n\n${FIVE_STEPS[2].name}结果：\n${result3}\n\n${FIVE_STEPS[3].name}结果：\n${result4}\n\n${'─'.repeat(20)}\n\n${step5.prompt(title)}` };
@@ -1363,7 +1365,7 @@ function ModuleCustomTopic({ onIncrementEssays, onTopicAnalyzed }) {
           <span>🎭</span> 自定义主题分析
         </h3>
         <p style={{ color: 'rgba(232,224,200,0.5)', fontSize: '13px' }}>
-          输入任意写作题目，AI 五步逐步分析 · 思维导图呈现
+          输入任意写作题目，可拓五步逐步分析 · 思维导图呈现
         </p>
       </div>
 
