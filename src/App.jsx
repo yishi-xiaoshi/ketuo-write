@@ -1161,6 +1161,97 @@ function ModuleWritingApp({ onIncrementEssays }) {
 }
 
 // ─── 示例题目列表（带唯一ID用于缓存）────────────────────
+      {/* 可拓学创新方法体系横向展示 */}
+      <div style={{ 
+        background: 'rgba(255, 255, 255, 0.03)', 
+        borderRadius: '16px', 
+        padding: '20px', 
+        marginBottom: '20px',
+        border: '1px solid rgba(212, 175, 55, 0.15)'
+      }}>
+        <div style={{ 
+          textAlign: 'center', 
+          color: '#d4af37', 
+          fontSize: '13px', 
+          fontWeight: 600, 
+          marginBottom: '16px',
+          letterSpacing: '1px'
+        }}>
+          ✦ 可拓学创新方法体系 ✦
+        </div>
+        <div style={{ 
+          display: 'flex', 
+          justifyContent: 'space-between', 
+          alignItems: 'center',
+          gap: '8px'
+        }}>
+          {/* 模块1：可拓模型 */}
+          <div style={{ 
+            flex: 1, 
+            background: 'linear-gradient(135deg, rgba(168, 85, 247, 0.15), rgba(168, 85, 247, 0.05))',
+            borderRadius: '12px', 
+            padding: '14px 10px', 
+            textAlign: 'center',
+            border: '1px solid rgba(168, 85, 247, 0.25)'
+          }}>
+            <div style={{ fontSize: '24px', marginBottom: '6px' }}>📦</div>
+            <div style={{ color: '#a855f7', fontSize: '12px', fontWeight: 700, marginBottom: '4px' }}>可拓模型</div>
+            <div style={{ color: 'rgba(232, 224, 200, 0.6)', fontSize: '10px', lineHeight: '1.4' }}>物元·事元<br/>关系元·复合元</div>
+          </div>
+          
+          {/* 箭头1 */}
+          <div style={{ color: 'rgba(212, 175, 55, 0.5)', fontSize: '16px', flexShrink: 0 }}>→</div>
+          
+          {/* 模块2：拓展分析 */}
+          <div style={{ 
+            flex: 1, 
+            background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.15), rgba(34, 197, 94, 0.05))',
+            borderRadius: '12px', 
+            padding: '14px 10px', 
+            textAlign: 'center',
+            border: '1px solid rgba(34, 197, 94, 0.25)'
+          }}>
+            <div style={{ fontSize: '24px', marginBottom: '6px' }}>🌳</div>
+            <div style={{ color: '#22c55e', fontSize: '12px', fontWeight: 700, marginBottom: '4px' }}>拓展分析</div>
+            <div style={{ color: 'rgba(232, 224, 200, 0.6)', fontSize: '10px', lineHeight: '1.4' }}>发散树·相关网<br/>蕴含系·分合链</div>
+          </div>
+          
+          {/* 箭头2 */}
+          <div style={{ color: 'rgba(212, 175, 55, 0.5)', fontSize: '16px', flexShrink: 0 }}>→</div>
+          
+          {/* 模块3：共轭分析 */}
+          <div style={{ 
+            flex: 1, 
+            background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(59, 130, 246, 0.05))',
+            borderRadius: '12px', 
+            padding: '14px 10px', 
+            textAlign: 'center',
+            border: '1px solid rgba(59, 130, 246, 0.25)'
+          }}>
+            <div style={{ fontSize: '24px', marginBottom: '6px' }}>🔄</div>
+            <div style={{ color: '#3b82f6', fontSize: '12px', fontWeight: 700, marginBottom: '4px' }}>共轭分析</div>
+            <div style={{ color: 'rgba(232, 224, 200, 0.6)', fontSize: '10px', lineHeight: '1.4' }}>虚实·软硬<br/>潜显·负正</div>
+          </div>
+          
+          {/* 箭头3 */}
+          <div style={{ color: 'rgba(212, 175, 55, 0.5)', fontSize: '16px', flexShrink: 0 }}>→</div>
+          
+          {/* 模块4：可拓变换 */}
+          <div style={{ 
+            flex: 1, 
+            background: 'linear-gradient(135deg, rgba(249, 115, 22, 0.15), rgba(249, 115, 22, 0.05))',
+            borderRadius: '12px', 
+            padding: '14px 10px', 
+            textAlign: 'center',
+            border: '1px solid rgba(249, 115, 22, 0.25)'
+          }}>
+            <div style={{ fontSize: '24px', marginBottom: '6px' }}>⚡</div>
+            <div style={{ color: '#f97316', fontSize: '12px', fontWeight: 700, marginBottom: '4px' }}>可拓变换</div>
+            <div style={{ color: 'rgba(232, 224, 200, 0.6)', fontSize: '10px', lineHeight: '1.4' }}>5种基本变换<br/>4种运算·传导·复合</div>
+          </div>
+        </div>
+      </div>
+
 const SAMPLE_TOPICS = [
   { id: 'sample_1', title: '《我最敬佩的老师》', type: '命题', hint: '写一位对你影响深刻的老师' },
   { id: 'sample_2', title: '《家乡的变化》', type: '命题', hint: '描写家乡在时代变迁中的变化' },
