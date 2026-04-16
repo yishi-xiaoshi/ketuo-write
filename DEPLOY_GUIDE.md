@@ -2,7 +2,7 @@
 
 > 部署平台：Netlify（免费）
 > GitHub 仓库：https://github.com/yishi-xiaoshi/ketuo-write
-> 网站地址：https://ketuowrite.netlify.app（部署后自动生成）
+> 网站地址：https://ketuoxue-write.netlify.app（改名后自动更新）
 
 ---
 
@@ -197,7 +197,7 @@ git remote set-url origin https://你的PersonalAccessToken@github.com/yishi-xia
 
 9. 页面显示 🟠 **Deploy in progress** 表示正在构建
 10. 等待 1-3 分钟，状态变为 🟢 **Published** 表示成功
-11. 获得网站地址：`https://ketuowrite-xxx.netlify.app`
+11. 获得网站地址：`https://ketuoxue-write.netlify.app`
 
 #### 5.5 自定义网站名称（可选）
 
@@ -215,7 +215,7 @@ git remote set-url origin https://你的PersonalAccessToken@github.com/yishi-xia
 
 | 项目 | 值 |
 |------|-----|
-| 网站地址 | `https://ketuowrite-xxx.netlify.app` |
+| 网站地址 | `https://ketuoxue-write.netlify.app` |
 | GitHub 仓库 | `https://github.com/yishi-xiaoshi/ketuo-write` |
 | 自动部署 | ✅ 已开启（推送到 main 分支自动触发） |
 
@@ -273,7 +273,7 @@ git push
 3. 输入你的域名（如 `ketuo.com`）
 
 4. 按照提示配置 DNS：
-   - 添加 CNAME 记录指向 `resonant-horse-98ca6c.netlify.app`
+   - 添加 CNAME 记录指向 `ketuoxue-write.netlify.app`
 
 5. 等待 DNS 生效后即可使用自定义域名
 
@@ -320,4 +320,4 @@ start dist
 
 ---
 
-*文档更新时间：2026-04-16（完成 GitHub + Netlify 完整部署流程验证）*
+*文档更新时间：2026-04-16（更新网站地址：https://ketuoxue-write.netlify.app）*
