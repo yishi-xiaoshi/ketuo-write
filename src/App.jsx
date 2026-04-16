@@ -901,7 +901,7 @@ function ModuleWritingApp({ onIncrementEssays }) {
             选择真题，可拓五步逐步分析 · 思维导图呈现
           </p>
                                   {/* 可拓学创新方法体系横向展示 */}
-      <div style={{ background: 'linear-gradient(135deg, rgba(212,175,55,0.08), rgba(212,175,55,0.02))', border: '1px solid rgba(212,175,55,0.2)', borderRadius: '16px', padding: '16px', marginBottom: '20px' }}>
+      <div style={{ background: 'linear-gradient(135deg, rgba(212,175,55,0.08), rgba(212,175,55,0.02))', border: '1px solid rgba(212,175,55,0.2)', borderRadius: '16px', padding: '16px', marginBottom: '20px', width: '100%', boxSizing: 'border-box' }}>
         <div style={{ textAlign: 'center', marginBottom: '12px', color: '#d4af37', fontSize: '14px', fontWeight: 700 }}>
           🔮 可拓学创新方法体系
         </div>
