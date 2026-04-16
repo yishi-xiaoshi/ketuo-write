@@ -900,93 +900,165 @@ function ModuleWritingApp({ onIncrementEssays }) {
           <p style={{ color: 'rgba(232,224,200,0.4)', fontSize: '12px' }}>
             选择真题，可拓五步逐步分析 · 思维导图呈现
           </p>
-                {/* 可拓学创新方法体系横向展示 */}
-      <div style={{ 
-        background: 'rgba(255, 255, 255, 0.03)', 
-        borderRadius: '16px', 
-        padding: '20px', 
+                      {/* 可拓学创新方法体系横向展示 */}
+      <div style={{
+        background: 'linear-gradient(135deg, rgba(212,175,55,0.08), rgba(212,175,55,0.02))',
+        border: '1px solid rgba(212,175,55,0.2)',
+        borderRadius: '16px',
+        padding: '16px 20px',
         marginBottom: '20px',
-        border: '1px solid rgba(212, 175, 55, 0.15)'
+        overflow: 'hidden'
       }}>
-        <div style={{ 
-          textAlign: 'center', 
-          color: '#d4af37', 
-          fontSize: '13px', 
-          fontWeight: 600, 
-          marginBottom: '16px',
-          letterSpacing: '1px'
-        }}>
-          ✦ 可拓学创新方法体系 ✦
+        <div style={{ textAlign: 'center', marginBottom: '12px' }}>
+          <span style={{ color: '#d4af37', fontSize: '13px', fontWeight: 700 }}>
+            🔮 可拓学创新方法体系
+          </span>
         </div>
-        <div style={{ 
-          display: 'flex', 
-          justifyContent: 'space-between', 
-          alignItems: 'center',
-          gap: '8px'
-        }}>
-          {/* 模块1：可拓模型 */}
-          <div style={{ 
-            flex: 1, 
-            background: 'linear-gradient(135deg, rgba(168, 85, 247, 0.15), rgba(168, 85, 247, 0.05))',
-            borderRadius: '12px', 
-            padding: '14px 10px', 
-            textAlign: 'center',
-            border: '1px solid rgba(168, 85, 247, 0.25)'
-          }}>
-            <div style={{ fontSize: '24px', marginBottom: '6px' }}>📦</div>
-            <div style={{ color: '#a855f7', fontSize: '12px', fontWeight: 700, marginBottom: '4px' }}>可拓模型</div>
-            <div style={{ color: 'rgba(232, 224, 200, 0.6)', fontSize: '10px', lineHeight: '1.4' }}>物元·事元<br/>关系元·复合元</div>
+        
+        {/* 横向五步展示 */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', justifyContent: 'center' }}>
+          
+          {/* 步骤1：可拓建模 */}
+          <div style={{ flex: 1, maxWidth: '200px', textAlign: 'center' }}>
+            <div style={{
+              width: '40px', height: '40px',
+              background: 'linear-gradient(135deg, #d4af37, #b8932e)',
+              borderRadius: '50%',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              margin: '0 auto 8px',
+              fontSize: '16px',
+              boxShadow: '0 2px 8px rgba(212,175,55,0.4)'
+            }}>🔲</div>
+            <div style={{ color: '#d4af37', fontSize: '11px', fontWeight: 600, marginBottom: '4px' }}>可拓建模</div>
+            <div style={{ 
+              background: 'rgba(212,175,55,0.1)', 
+              border: '1px solid rgba(212,175,55,0.2)',
+              borderRadius: '8px', 
+              padding: '6px 8px',
+              fontSize: '10px',
+              color: 'rgba(232,224,200,0.7)',
+              lineHeight: 1.5
+            }}>
+              <div>物元（名词,特征,量值）</div>
+              <div>事元（动词,特征,量值）</div>
+              <div>关系元（关系名,特征,量值）</div>
+            </div>
           </div>
           
-          {/* 箭头1 */}
-          <div style={{ color: 'rgba(212, 175, 55, 0.5)', fontSize: '16px', flexShrink: 0 }}>→</div>
+          {/* 箭头 */}
+          <div style={{ color: 'rgba(212,175,55,0.5)', fontSize: '18px', flexShrink: 0 }}>→</div>
           
-          {/* 模块2：拓展分析 */}
-          <div style={{ 
-            flex: 1, 
-            background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.15), rgba(34, 197, 94, 0.05))',
-            borderRadius: '12px', 
-            padding: '14px 10px', 
-            textAlign: 'center',
-            border: '1px solid rgba(34, 197, 94, 0.25)'
-          }}>
-            <div style={{ fontSize: '24px', marginBottom: '6px' }}>🌳</div>
-            <div style={{ color: '#22c55e', fontSize: '12px', fontWeight: 700, marginBottom: '4px' }}>拓展分析</div>
-            <div style={{ color: 'rgba(232, 224, 200, 0.6)', fontSize: '10px', lineHeight: '1.4' }}>发散树·相关网<br/>蕴含系·分合链</div>
+          {/* 步骤2：拓展分析 */}
+          <div style={{ flex: 1, maxWidth: '200px', textAlign: 'center' }}>
+            <div style={{
+              width: '40px', height: '40px',
+              background: 'linear-gradient(135deg, #4ade80, #22c55e)',
+              borderRadius: '50%',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              margin: '0 auto 8px',
+              fontSize: '16px',
+              boxShadow: '0 2px 8px rgba(74,222,128,0.4)'
+            }}>🌳</div>
+            <div style={{ color: '#4ade80', fontSize: '11px', fontWeight: 600, marginBottom: '4px' }}>拓展分析</div>
+            <div style={{ 
+              background: 'rgba(74,222,128,0.1)', 
+              border: '1px solid rgba(74,222,128,0.2)',
+              borderRadius: '8px', 
+              padding: '6px 8px',
+              fontSize: '10px',
+              color: 'rgba(232,224,200,0.7)',
+              lineHeight: 1.5
+            }}>
+              <div>发散树 · 相关网</div>
+              <div>蕴含系 · 分合链</div>
+            </div>
           </div>
           
-          {/* 箭头2 */}
-          <div style={{ color: 'rgba(212, 175, 55, 0.5)', fontSize: '16px', flexShrink: 0 }}>→</div>
+          {/* 箭头 */}
+          <div style={{ color: 'rgba(212,175,55,0.5)', fontSize: '18px', flexShrink: 0 }}>→</div>
           
-          {/* 模块3：共轭分析 */}
-          <div style={{ 
-            flex: 1, 
-            background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(59, 130, 246, 0.05))',
-            borderRadius: '12px', 
-            padding: '14px 10px', 
-            textAlign: 'center',
-            border: '1px solid rgba(59, 130, 246, 0.25)'
-          }}>
-            <div style={{ fontSize: '24px', marginBottom: '6px' }}>🔄</div>
-            <div style={{ color: '#3b82f6', fontSize: '12px', fontWeight: 700, marginBottom: '4px' }}>共轭分析</div>
-            <div style={{ color: 'rgba(232, 224, 200, 0.6)', fontSize: '10px', lineHeight: '1.4' }}>虚实·软硬<br/>潜显·负正</div>
+          {/* 步骤3：共轭深挖 */}
+          <div style={{ flex: 1, maxWidth: '200px', textAlign: 'center' }}>
+            <div style={{
+              width: '40px', height: '40px',
+              background: 'linear-gradient(135deg, #60a5fa, #3b82f6)',
+              borderRadius: '50%',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              margin: '0 auto 8px',
+              fontSize: '16px',
+              boxShadow: '0 2px 8px rgba(96,165,250,0.4)'
+            }}>🔍</div>
+            <div style={{ color: '#60a5fa', fontSize: '11px', fontWeight: 600, marginBottom: '4px' }}>共轭深挖</div>
+            <div style={{ 
+              background: 'rgba(96,165,250,0.1)', 
+              border: '1px solid rgba(96,165,250,0.2)',
+              borderRadius: '8px', 
+              padding: '6px 8px',
+              fontSize: '10px',
+              color: 'rgba(232,224,200,0.7)',
+              lineHeight: 1.5
+            }}>
+              <div>虚实 · 软硬</div>
+              <div>潜显 · 负正</div>
+            </div>
           </div>
           
-          {/* 箭头3 */}
-          <div style={{ color: 'rgba(212, 175, 55, 0.5)', fontSize: '16px', flexShrink: 0 }}>→</div>
+          {/* 箭头 */}
+          <div style={{ color: 'rgba(212,175,55,0.5)', fontSize: '18px', flexShrink: 0 }}>→</div>
           
-          {/* 模块4：可拓变换 */}
-          <div style={{ 
-            flex: 1, 
-            background: 'linear-gradient(135deg, rgba(249, 115, 22, 0.15), rgba(249, 115, 22, 0.05))',
-            borderRadius: '12px', 
-            padding: '14px 10px', 
-            textAlign: 'center',
-            border: '1px solid rgba(249, 115, 22, 0.25)'
-          }}>
-            <div style={{ fontSize: '24px', marginBottom: '6px' }}>⚡</div>
-            <div style={{ color: '#f97316', fontSize: '12px', fontWeight: 700, marginBottom: '4px' }}>可拓变换</div>
-            <div style={{ color: 'rgba(232, 224, 200, 0.6)', fontSize: '10px', lineHeight: '1.4' }}>5种基本变换<br/>4种运算·传导·复合</div>
+          {/* 步骤4：可拓变换 */}
+          <div style={{ flex: 1, maxWidth: '200px', textAlign: 'center' }}>
+            <div style={{
+              width: '40px', height: '40px',
+              background: 'linear-gradient(135deg, #fb923c, #f97316)',
+              borderRadius: '50%',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              margin: '0 auto 8px',
+              fontSize: '16px',
+              boxShadow: '0 2px 8px rgba(251,146,60,0.4)'
+            }}>🔄</div>
+            <div style={{ color: '#fb923c', fontSize: '11px', fontWeight: 600, marginBottom: '4px' }}>可拓变换</div>
+            <div style={{ 
+              background: 'rgba(251,146,60,0.1)', 
+              border: '1px solid rgba(251,146,60,0.2)',
+              borderRadius: '8px', 
+              padding: '6px 8px',
+              fontSize: '10px',
+              color: 'rgba(232,224,200,0.7)',
+              lineHeight: 1.5
+            }}>
+              <div>5种基本变换 · 4种运算</div>
+              <div>传导 · 共轭 · 复合变换</div>
+            </div>
+          </div>
+          
+          {/* 箭头 */}
+          <div style={{ color: 'rgba(212,175,55,0.5)', fontSize: '18px', flexShrink: 0 }}>→</div>
+          
+          {/* 步骤5：收敛成文 */}
+          <div style={{ flex: 1, maxWidth: '200px', textAlign: 'center' }}>
+            <div style={{
+              width: '40px', height: '40px',
+              background: 'linear-gradient(135deg, #c084fc, #a855f7)',
+              borderRadius: '50%',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              margin: '0 auto 8px',
+              fontSize: '16px',
+              boxShadow: '0 2px 8px rgba(192,132,252,0.4)'
+            }}>📝</div>
+            <div style={{ color: '#c084fc', fontSize: '11px', fontWeight: 600, marginBottom: '4px' }}>收敛成文</div>
+            <div style={{ 
+              background: 'rgba(192,132,252,0.1)', 
+              border: '1px solid rgba(192,132,252,0.2)',
+              borderRadius: '8px', 
+              padding: '6px 8px',
+              fontSize: '10px',
+              color: 'rgba(232,224,200,0.7)',
+              lineHeight: 1.5
+            }}>
+              <div>整合五步思维</div>
+              <div>生成范文</div>
+            </div>
           </div>
         </div>
       </div>
