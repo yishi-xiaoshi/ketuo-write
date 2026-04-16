@@ -1,0 +1,459 @@
+@import "tailwindcss";
+
+@theme {
+  --color-navy-950: #050d1f;
+  --color-navy-900: #0a1628;
+  --color-navy-800: #112240;
+  --color-navy-700: #1a3356;
+  --color-gold-400: #f0c040;
+  --color-gold-500: #d4af37;
+  --color-gold-600: #b8962e;
+  --font-zh: 'Noto Serif SC', 'STSong', 'SimSun', serif;
+}
+
+@font-face {
+  font-family: 'Noto Serif SC';
+  src: local('Noto Serif SC');
+  font-display: swap;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+  background: #050d1f;
+  color: #e8e0c8;
+  font-family: 'Noto Serif SC', 'STSong', 'SimSun', serif;
+}
+
+/* 自定义滚动条 */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #0a1628; }
+::-webkit-scrollbar-thumb { background: #d4af37; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #f0c040; }
+
+/* 打字机动画 */
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+@keyframes blink {
+  0%, 100% { border-color: #d4af37; }
+  50% { border-color: transparent; }
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideDown {
+  from { opacity: 0; max-height: 0; }
+  to { opacity: 1; max-height: 500px; }
+}
+@keyframes pulse-gold {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(212,175,55,0.4); }
+  50% { box-shadow: 0 0 20px 4px rgba(212,175,55,0.2); }
+}
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.animate-fade-in { animation: fadeIn 0.4s ease both; }
+.animate-slide-down { animation: slideDown 0.5s ease both; }
+.animate-pulse-gold { animation: pulse-gold 2s ease infinite; }
+.animate-shimmer {
+  background: linear-gradient(90deg, #0a1628 0%, #d4af37 25%, #f0c040 50%, #d4af37 75%, #0a1628 100%);
+  background-size: 200% auto;
+  animation: shimmer 3s linear infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* 步骤卡片 */
+.step-card {
+  background: rgba(212,175,55,0.06);
+  border: 1px solid rgba(212,175,55,0.2);
+  border-radius: 16px;
+  padding: 24px;
+  transition: all 0.3s ease;
+}
+.step-card:hover {
+  background: rgba(212,175,55,0.1);
+  border-color: rgba(212,175,55,0.4);
+  transform: translateY(-2px);
+}
+.step-card.active {
+  background: rgba(212,175,55,0.12);
+  border-color: #d4af37;
+  box-shadow: 0 0 24px rgba(212,175,55,0.15);
+}
+
+/* 按钮 */
+.btn-gold {
+  background: linear-gradient(135deg, #d4af37, #f0c040);
+  color: #050d1f;
+  font-weight: 700;
+  padding: 12px 28px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+.btn-gold:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(212,175,55,0.3);
+}
+.btn-gold:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+.btn-outline {
+  background: transparent;
+  color: #d4af37;
+  border: 1px solid rgba(212,175,55,0.4);
+  padding: 10px 24px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+.btn-outline:hover {
+  background: rgba(212,175,55,0.1);
+  border-color: #d4af37;
+}
+
+/* 输入框 */
+.input-field {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(212,175,55,0.25);
+  border-radius: 12px;
+  padding: 14px 18px;
+  color: #e8e0c8;
+  font-size: 16px;
+  font-family: inherit;
+  width: 100%;
+  transition: all 0.2s ease;
+  resize: none;
+}
+.input-field:focus {
+  outline: none;
+  border-color: #d4af37;
+  background: rgba(212,175,55,0.08);
+  box-shadow: 0 0 0 3px rgba(212,175,55,0.1);
+}
+.input-field::placeholder { color: rgba(232,224,200,0.35); }
+
+/* 标签 */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  background: rgba(212,175,55,0.15);
+  color: #d4af37;
+  border: 1px solid rgba(212,175,55,0.25);
+}
+
+/* 模块导航 */
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 20px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: rgba(232,224,200,0.6);
+  font-size: 15px;
+  border: 1px solid transparent;
+}
+.nav-item:hover {
+  background: rgba(212,175,55,0.08);
+  color: #e8e0c8;
+}
+.nav-item.active {
+  background: rgba(212,175,55,0.12);
+  color: #d4af37;
+  border-color: rgba(212,175,55,0.3);
+}
+
+/* 进度条 */
+.progress-step {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+.progress-dot {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  border: 2px solid rgba(212,175,55,0.3);
+  color: rgba(232,224,200,0.4);
+  background: transparent;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+.progress-dot.done {
+  background: #d4af37;
+  border-color: #d4af37;
+  color: #050d1f;
+}
+.progress-dot.active {
+  background: rgba(212,175,55,0.2);
+  border-color: #d4af37;
+  color: #d4af37;
+  box-shadow: 0 0 12px rgba(212,175,55,0.4);
+}
+.progress-line {
+  flex: 1;
+  height: 2px;
+  background: rgba(212,175,55,0.2);
+  border-radius: 1px;
+}
+.progress-line.done {
+  background: #d4af37;
+}
+
+/* 五步法样式 */
+.step-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.step-num {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #d4af37, #f0c040);
+  color: #050d1f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+.step-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #d4af37;
+}
+.step-subtitle {
+  font-size: 13px;
+  color: rgba(232,224,200,0.5);
+}
+
+/* 内容块 */
+.content-block {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(212,175,55,0.1);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 16px;
+}
+.content-block h4 {
+  font-size: 14px;
+  font-weight: 700;
+  color: #d4af37;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* 卡片网格 */
+.card-grid {
+  display: grid;
+  gap: 12px;
+}
+.card-grid-2 { grid-template-columns: 1fr 1fr; }
+.card-grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+
+/* 素材库标签页 */
+.tab-btn {
+  padding: 8px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  border: 1px solid rgba(212,175,55,0.2);
+  background: transparent;
+  color: rgba(232,224,200,0.5);
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+.tab-btn.active {
+  background: rgba(212,175,55,0.15);
+  border-color: #d4af37;
+  color: #d4af37;
+}
+.tab-btn:hover:not(.active) {
+  background: rgba(212,175,55,0.05);
+}
+
+/* 工具提示 */
+.tooltip {
+  position: relative;
+}
+.tooltip-text {
+  visibility: hidden;
+  position: absolute;
+  bottom: 120%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1a3356;
+  color: #e8e0c8;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  white-space: nowrap;
+  border: 1px solid rgba(212,175,55,0.3);
+  z-index: 100;
+}
+.tooltip:hover .tooltip-text { visibility: visible; }
+
+/* 加载动画 */
+.loading-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(212,175,55,0.2);
+  border-top-color: #d4af37;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  display: inline-block;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* 响应式 */
+@media (max-width: 768px) {
+  .card-grid-2, .card-grid-3 { grid-template-columns: 1fr; }
+}
+
+/* ─── App 布局 ─────────────────────────────────── */
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: linear-gradient(135deg, #050d1f 0%, #0a1628 50%, #112240 100%);
+  color: #e8e0c8;
+  font-family: 'Noto Serif SC', 'STSong', 'SimSun', serif;
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  background: rgba(10, 22, 40, 0.95);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+  backdrop-filter: blur(12px);
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.app-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #d4af37;
+  letter-spacing: 1px;
+}
+
+.app-subtitle {
+  font-size: 11px;
+  color: rgba(232, 224, 200, 0.4);
+  margin-top: 2px;
+}
+
+.mobile-menu-btn {
+  display: none;
+  background: transparent;
+  border: none;
+  color: #d4af37;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.sidebar {
+  width: 260px;
+  background: rgba(10, 22, 40, 0.6);
+  border-right: 1px solid rgba(212, 175, 55, 0.15);
+  padding: 20px 12px;
+  flex-shrink: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sidebar-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: rgba(232, 224, 200, 0.6);
+  font-size: 15px;
+  font-weight: 500;
+  background: transparent;
+  border: 1px solid transparent;
+  font-family: inherit;
+  text-align: left;
+  width: 100%;
+}
+
+.sidebar-btn:hover {
+  background: rgba(212, 175, 55, 0.08);
+  color: #e8e0c8;
+}
+
+.sidebar-btn.active {
+  background: rgba(212, 175, 55, 0.12);
+  color: #d4af37;
+  border-color: rgba(212, 175, 55, 0.3);
+}
+
+.main-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 32px;
+  max-width: 1100px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+  .mobile-menu-btn { display: flex; }
+  .sidebar {
+    position: fixed;
+    left: 0; top: 0; bottom: 0;
+    z-index: 200;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    width: 280px;
+    padding-top: 80px;
+    background: rgba(10, 22, 40, 0.98);
+  }
+  .sidebar.show { transform: translateX(0); }
+  .main-content { padding: 20px 16px; }
+}
