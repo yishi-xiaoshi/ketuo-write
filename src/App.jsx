@@ -301,7 +301,7 @@ function ModelLoader({ progress, onLoaded, error, rawErrorText, onRetry }) {
 
 // ─── 五步进度条组件 ────────────────────────────────────────
 function StepProgress({ currentStep, totalSteps = 5 }) {
-  const labels = ['建模', '发散', '共轭', '变换', '成文'];
+  const labels = ['可拓建模', '发散分析', '共轭深挖', '可拓变换', '成文'];
   const items = [];
   for (let i = 0; i < totalSteps; i++) {
     const num = i + 1;
@@ -639,7 +639,7 @@ function parseToMindMap(step, content) {
     
     if (branches.length === 0) {
       branches.push({
-        label: '🔍 共轭分析',
+        label: '🔍 共轭深挖',
         items: content.split('\n').slice(0, 4).map(l => l.replace(/^[#\d\.\、]+/, '').trim()).filter(Boolean)
       });
     }
