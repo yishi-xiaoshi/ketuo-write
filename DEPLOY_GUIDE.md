@@ -1,7 +1,8 @@
 # 可拓写作智能系统部署指南
 
 > 部署平台：Netlify（免费）
-> 网站地址：https://resonant-horse-98ca6c.netlify.app
+> GitHub 仓库：https://github.com/yishi-xiaoshi/ketuo-write
+> 网站地址：https://ketuowrite.netlify.app（部署后自动生成）
 
 ---
 
@@ -81,6 +82,29 @@
 
 ### 第三步：初始化本地仓库并推送
 
+#### 3.1 配置 Git 凭证管理器（重要！）
+
+> ⚠️ **2021年后 GitHub 不再支持密码登录**，必须使用以下方式之一：
+
+**方式 A：Git Credential Manager（推荐）✅ 已验证成功**
+
+```bash
+# 配置使用 Windows 凭据管理器
+git config --global credential.helper manager
+```
+
+推送时会弹出浏览器窗口让你登录 GitHub，授权成功后会自动记住凭证。
+
+**方式 B：在 URL 中嵌入 Token**
+
+```bash
+git remote set-url origin https://你的PersonalAccessToken@github.com/yishi-xiaoshi/ketuo-write.git
+```
+
+---
+
+#### 3.2 完整推送步骤
+
 1. 打开 **Windows PowerShell**
 
 2. 进入项目目录：
@@ -93,67 +117,127 @@
    git init
    ```
 
-4. 创建 `.gitignore` 文件（排除不需要的文件）：
+4. 配置凭证管理器：
+   ```bash
+   git config --global credential.helper manager
+   ```
+
+5. 创建 `.gitignore` 文件（排除不需要的文件）：
    ```bash
    echo "node_modules/" > .gitignore
    echo "dist/" >> .gitignore
    echo ".env" >> .gitignore
    ```
 
-5. 添加所有文件：
+6. 添加所有文件：
    ```bash
    git add .
    ```
 
-6. 提交：
+7. 提交：
    ```bash
    git commit -m "Initial commit: 可拓写作智能系统"
    ```
 
-7. 添加远程仓库：
+8. 添加远程仓库：
    ```bash
-   git remote add origin https://github.com/你的用户名/ketuo-write.git
+   git remote add origin https://github.com/yishi-xiaoshi/ketuo-write.git
    ```
-   ⚠️ 把 URL 换成你第二步复制的地址
 
-8. 推送到 GitHub：
+9. 推送到 GitHub：
    ```bash
    git push -u origin main
    ```
 
-   如果提示要用户名和密码：
-   - 用户名：输入你的 GitHub 用户名
-   - 密码：**需要用 Personal Access Token**（不是密码）
+10. 首次推送时会弹出 Git Credential Manager 窗口，选择 **"Sign in with your browser"**
 
-   获取 Token：
-   1. GitHub → Settings → Developer settings → Personal access tokens → **Generate new token**
-   2. 勾选 `repo` 权限
-   3. 生成后复制 token，粘贴时当作密码使用
+11. 浏览器中完成 GitHub 授权
+
+12. 看到 `Authentication Succeeded` 和 `* [new branch] main -> main` 即表示成功！
 
 ---
 
-### 第四步：连接 Netlify
+### 第四步：常见错误处理
 
-1. 打开 https://app.netlify.com 并登录
+| 错误信息 | 解决方法 |
+|---------|---------|
+| `Password authentication is not supported` | 必须用 Token 或 Git Credential Manager |
+| 看不到输入的密码/Token | 正常现象，PowerShell 隐藏输入以保护安全 |
+| 浏览器授权后还是失败 | 确认授权了 `repo` 权限范围 |
+
+---
+
+### 第五步：连接 Netlify ✅ 已验证成功
+
+#### 5.1 登录并创建项目
+
+1. 打开 https://app.netlify.com 并登录（推荐用 GitHub 账号登录）
 2. 点击 **Add new site** → **Import an existing project**
-3. 选择 **GitHub**（首次需要授权 GitHub）
-4. 选择你的仓库 `ketuo-write`
-5. 配置：
-   - **Build command**: `npm run build`
-   - **Publish directory**: `dist`
-6. 点击 **Deploy site**
+3. 选择 **GitHub**（首次会弹出授权窗口）
+
+#### 5.2 授权 GitHub 仓库
+
+4. 点击绿色的 **安装(Install)** 或 **授权(Authorize)** 按钮
+5. 在弹出页面选择 `ketuo-write` 仓库
+6. 点击 **安装(Install)**
+
+#### 5.3 配置构建设置
+
+7. 返回 Netlify 页面，确认配置：
+
+| 设置项 | 值 | 说明 |
+|--------|-----|------|
+| **构建命令** | `npm run build` | ✅ 标准 Vite 项目 |
+| **发布目录** | `dist` | ✅ Vite 默认输出目录 |
+| **分支** | `main` | 部署哪个 GitHub 分支 |
+
+8. 点击 **Deploy site** 开始部署
+
+#### 5.4 等待部署完成
+
+9. 页面显示 🟠 **Deploy in progress** 表示正在构建
+10. 等待 1-3 分钟，状态变为 🟢 **Published** 表示成功
+11. 获得网站地址：`https://ketuowrite-xxx.netlify.app`
+
+#### 5.5 自定义网站名称（可选）
+
+- Netlify 会根据仓库名自动生成网站名
+- 可在 **Site settings** → **Site details** 中修改
+- 最终格式：`https://你的名字.netlify.app`
 
 ---
 
-### 第五步：完成！🎉
+### 第六步：完成！🎉
 
-Netlify 会自动构建并部署，之后：
+恭喜！你的网站已经上线！
 
-| 操作 | 结果 |
-|------|------|
-| 推送代码到 GitHub | Netlify 自动检测并部署 |
-| 打开网站 | https://xxx.netlify.app |
-| 修改代码 | 推送到 GitHub 后自动更新 |
+#### 部署结果
+
+| 项目 | 值 |
+|------|-----|
+| 网站地址 | `https://ketuowrite-xxx.netlify.app` |
+| GitHub 仓库 | `https://github.com/yishi-xiaoshi/ketuo-write` |
+| 自动部署 | ✅ 已开启（推送到 main 分支自动触发） |
+
+#### 后续工作流
+
+每次更新代码后：
+
+```bash
+# 1. 进入项目目录
+cd c:/Users/penglishi/WorkBuddy/Claw/ketuo-write-system
+
+# 2. 添加所有修改
+git add .
+
+# 3. 提交（写清楚改动）
+git commit -m "修复了XX问题"
+
+# 4. 推送到 GitHub（自动触发 Netlify 部署）
+git push
+```
+
+推送到 GitHub 后，Netlify 会在 **1-3 分钟内**自动检测到更新并重新部署。
 
 ---
 
@@ -236,4 +320,4 @@ start dist
 
 ---
 
-*文档更新时间：2026-04-16*
+*文档更新时间：2026-04-16（完成 GitHub + Netlify 完整部署流程验证）*
