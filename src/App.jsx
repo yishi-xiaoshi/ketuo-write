@@ -1674,10 +1674,10 @@ function ModuleMaterials() {
 
   const tabs = [
     { id: 'keys', label: '🔑 七把钥匙', icon: <Compass size={14} /> },
-    { id: 'materials', label: '📖 素材积累', icon: <BookMarked size={14} /> },
     { id: 'frameworks', label: '🧱 逻辑框架', icon: <Layers size={14} /> },
     { id: 'sentences', label: '✨ 写作金句', icon: <Sparkles size={14} /> },
     { id: 'yuan', label: '🔮 基元特征库', icon: <Cpu size={14} /> },
+    { id: 'materials', label: '📖 素材积累', icon: <BookMarked size={14} /> },
   ];
 
   return (
