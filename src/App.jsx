@@ -906,7 +906,7 @@ function ModuleWritingApp({ onIncrementEssays }) {
       {/* 可拓学创新方法体系横向展示 */}
       <div style={{ background: 'linear-gradient(135deg, rgba(212,175,55,0.08), rgba(212,175,55,0.02))', border: '1px solid rgba(212,175,55,0.2)', borderRadius: '16px', padding: '16px', marginBottom: '20px', width: '100%', boxSizing: 'border-box' }}>
         <div style={{ textAlign: 'center', marginBottom: '12px', color: '#d4af37', fontSize: '14px', fontWeight: 700 }}>
-          🔮 可拓写作五把钥匙
+          🔮 可拓写作七把钥匙
         </div>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div style={{ flex: 1, textAlign: 'center' }}>
@@ -1661,7 +1661,7 @@ function ModuleCustomTopic({ onIncrementEssays, onTopicAnalyzed }) {
 
 // ─── 模块三：写作素材库 ────────────────────────────────────
 function ModuleMaterials() {
-  const [activeTab, setActiveTab] = useState('materials');
+  const [activeTab, setActiveTab] = useState('keys');
   const [expandedKey, setExpandedKey] = useState(null);
   const [copiedId, setCopiedId] = useState(null);
 
@@ -1673,7 +1673,7 @@ function ModuleMaterials() {
   };
 
   const tabs = [
-    { id: 'keys', label: '🔑 五把钥匙', icon: <Compass size={14} /> },
+    { id: 'keys', label: '🔑 七把钥匙', icon: <Compass size={14} /> },
     { id: 'materials', label: '📖 素材积累', icon: <BookMarked size={14} /> },
     { id: 'frameworks', label: '🧱 逻辑框架', icon: <Layers size={14} /> },
     { id: 'sentences', label: '✨ 写作金句', icon: <Sparkles size={14} /> },
@@ -2033,7 +2033,7 @@ function ModuleMaterials() {
         </div>
       )}
 
-      {/* 五把钥匙详解 */}
+      {/* 七把钥匙详解 */}
       {activeTab === 'keys' && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
           {SEVEN_KEYS.map(key => (
