@@ -8,7 +8,7 @@ import {
   Cpu, Wifi, WifiOff, AlertCircle
 } from 'lucide-react';
 import {
-  EXAM_TOPICS, FIVE_KEYS, FIVE_STEPS, MATERIALS, API_CONFIG
+  EXAM_TOPICS, SEVEN_KEYS, FIVE_STEPS, MATERIALS, API_CONFIG
 } from './data/courseData.js';
 import './index.css';
 
@@ -2036,7 +2036,7 @@ function ModuleMaterials() {
       {/* 五把钥匙详解 */}
       {activeTab === 'keys' && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-          {FIVE_KEYS.map(key => (
+          {SEVEN_KEYS.map(key => (
             <div key={key.id} style={{
               background: 'rgba(255,255,255,0.03)',
               border: '1px solid rgba(255,255,255,0.08)',
