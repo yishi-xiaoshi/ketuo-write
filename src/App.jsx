@@ -301,7 +301,7 @@ function ModelLoader({ progress, onLoaded, error, rawErrorText, onRetry }) {
 
 // ─── 五步进度条组件 ────────────────────────────────────────
 function StepProgress({ currentStep, totalSteps = 5 }) {
-  const labels = ['建模', '发散', '共轭', '变换', '成文'];
+  const labels = ['可拓建模', '发散分析', '共轭深挖', '可拓变换', '收敛成文'];
   const items = [];
   for (let i = 0; i < totalSteps; i++) {
     const num = i + 1;
@@ -647,13 +647,15 @@ function parseToMindMap(step, content) {
     return { title: '🔍 共轭部思维导图', branches, centerColor: '#60a5fa' };
   }
   
-  // 步骤4：可拓变换 - 替换/增删/拆合/传导
+  // 步骤4：可拓变换 - 置换/增删/扩缩/分解/复制/传导
   if (step === 4) {
     const branches = [];
     const patterns = [
-      { key: '替换变换', icon: '🔄', regex: /替换[^：：]*[：:]\s*([^#]+?)(?=增删|拆合|传导|$)/gis },
+      { key: '置换变换', icon: '🔄', regex: /替换[^：：]*[：:]\s*([^#]+?)(?=增删|拆合|传导|$)/gis },
       { key: '增删变换', icon: '➕', regex: /增删[^：：]*[：:]\s*([^#]+?)(?=替换|拆合|传导|$)/gis },
-      { key: '拆合变换', icon: '🔗', regex: /拆合[^：：]*[：:]\s*([^#]+?)(?=替换|增删|传导|$)/gis },
+      { key: '扩缩变换', icon: '🔍', regex: /扩缩[^：：]*[：:]\s*([^#]+?)(?=替换|增删|传导|$)/gis },
+      { key: '分解变换', icon: '🔗', regex: /分解[^：：]*[：:]\s*([^#]+?)(?=替换|增删|传导|$)/gis },
+      { key: '复制变换', icon: '🔗', regex: /拆合[^：：]*[：:]\s*([^#]+?)(?=替换|增删|传导|$)/gis },
       { key: '传导变换', icon: '⚡', regex: /传导[^：：]*[：:]\s*([^#]+?)(?=替换|增删|拆合|$)/gis },
     ];
     
@@ -898,6 +900,44 @@ function ModuleWritingApp({ onIncrementEssays }) {
           <p style={{ color: 'rgba(232,224,200,0.4)', fontSize: '12px' }}>
             选择真题，可拓五步逐步分析 · 思维导图呈现
           </p>
+                                  {/* 可拓学创新方法体系横向展示 */}
+      <div style={{ background: 'linear-gradient(135deg, rgba(212,175,55,0.08), rgba(212,175,55,0.02))', border: '1px solid rgba(212,175,55,0.2)', borderRadius: '16px', padding: '16px', marginBottom: '20px', width: '100%', boxSizing: 'border-box' }}>
+        <div style={{ textAlign: 'center', marginBottom: '12px', color: '#d4af37', fontSize: '14px', fontWeight: 700 }}>
+          🔮 可拓学创新方法体系
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div style={{ flex: 1, textAlign: 'center' }}>
+            <div style={{ width: '40px', height: '40px', background: 'linear-gradient(135deg, #d4af37, #b8932e)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 6px', fontSize: '16px', boxShadow: '0 2px 8px rgba(212,175,55,0.4)' }}>🔲</div>
+            <div style={{ color: '#d4af37', fontSize: '11px', fontWeight: 600, marginBottom: '4px' }}>可拓建模</div>
+            <div style={{ background: 'rgba(212,175,55,0.1)', border: '1px solid rgba(212,175,55,0.2)', borderRadius: '8px', padding: '6px', fontSize: '10px', color: 'rgba(232,224,200,0.7)' }}>物元·事元·关系元</div>
+          </div>
+          <div style={{ color: 'rgba(212,175,55,0.5)', fontSize: '18px' }}>→</div>
+          <div style={{ flex: 1, textAlign: 'center' }}>
+            <div style={{ width: '40px', height: '40px', background: 'linear-gradient(135deg, #4ade80, #22c55e)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 6px', fontSize: '16px', boxShadow: '0 2px 8px rgba(74,222,128,0.4)' }}>🌳</div>
+            <div style={{ color: '#4ade80', fontSize: '11px', fontWeight: 600, marginBottom: '4px' }}>拓展分析</div>
+            <div style={{ background: 'rgba(74,222,128,0.1)', border: '1px solid rgba(74,222,128,0.2)', borderRadius: '8px', padding: '6px', fontSize: '10px', color: 'rgba(232,224,200,0.7)' }}>发散树·相关网<br/>蕴含系·分合链</div>
+          </div>
+          <div style={{ color: 'rgba(212,175,55,0.5)', fontSize: '18px' }}>→</div>
+          <div style={{ flex: 1, textAlign: 'center' }}>
+            <div style={{ width: '40px', height: '40px', background: 'linear-gradient(135deg, #60a5fa, #3b82f6)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 6px', fontSize: '16px', boxShadow: '0 2px 8px rgba(96,165,250,0.4)' }}>🔍</div>
+            <div style={{ color: '#60a5fa', fontSize: '11px', fontWeight: 600, marginBottom: '4px' }}>共轭深挖</div>
+            <div style={{ background: 'rgba(96,165,250,0.1)', border: '1px solid rgba(96,165,250,0.2)', borderRadius: '8px', padding: '6px', fontSize: '10px', color: 'rgba(232,224,200,0.7)' }}>虚实·软硬<br/>潜显·负正</div>
+          </div>
+          <div style={{ color: 'rgba(212,175,55,0.5)', fontSize: '18px' }}>→</div>
+          <div style={{ flex: 1, textAlign: 'center' }}>
+            <div style={{ width: '40px', height: '40px', background: 'linear-gradient(135deg, #fb923c, #f97316)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 6px', fontSize: '16px', boxShadow: '0 2px 8px rgba(251,146,60,0.4)' }}>🔄</div>
+            <div style={{ color: '#fb923c', fontSize: '11px', fontWeight: 600, marginBottom: '4px' }}>可拓变换</div>
+            <div style={{ background: 'rgba(251,146,60,0.1)', border: '1px solid rgba(251,146,60,0.2)', borderRadius: '8px', padding: '6px', fontSize: '10px', color: 'rgba(232,224,200,0.7)' }}>5种变换·4种运算<br/>传导·共轭·复合</div>
+          </div>
+          <div style={{ color: 'rgba(212,175,55,0.5)', fontSize: '18px' }}>→</div>
+          <div style={{ flex: 1, textAlign: 'center' }}>
+            <div style={{ width: '40px', height: '40px', background: 'linear-gradient(135deg, #c084fc, #a855f7)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 6px', fontSize: '16px', boxShadow: '0 2px 8px rgba(192,132,252,0.4)' }}>📝</div>
+            <div style={{ color: '#c084fc', fontSize: '11px', fontWeight: 600, marginBottom: '4px' }}>收敛成文</div>
+            <div style={{ background: 'rgba(192,132,252,0.1)', border: '1px solid rgba(192,132,252,0.2)', borderRadius: '8px', padding: '6px', fontSize: '10px', color: 'rgba(232,224,200,0.7)' }}>整合思维<br/>生成范文</div>
+          </div>
+        </div>
+      </div>
+
         </div>
       </div>
 
@@ -1100,7 +1140,7 @@ function ModuleWritingApp({ onIncrementEssays }) {
           color: 'rgba(232,224,200,0.5)', fontSize: '13px', marginBottom: '16px'
         }}>
           <Loader2 size={20} className="spin" style={{ marginBottom: '8px' }} />
-          <div>AI 分析中，请稍候...</div>
+          <div>可拓分析中，请稍候...</div>
           <button
             onClick={pauseAnalysis}
             style={{
@@ -1344,7 +1384,7 @@ function ModuleCustomTopic({ onIncrementEssays, onTopicAnalyzed }) {
       
       if (isPaused) return;
       
-      // 步骤5：成文
+      // 步骤5：收敛成文
       setLoadingStep(5);
       const step5 = FIVE_STEPS[4];
       const userMsg5 = { role: 'user', content: `${FIVE_STEPS[0].name}结果：\n${result1}\n\n${FIVE_STEPS[1].name}结果：\n${result2}\n\n${FIVE_STEPS[2].name}结果：\n${result3}\n\n${FIVE_STEPS[3].name}结果：\n${result4}\n\n${'─'.repeat(20)}\n\n${step5.prompt(title)}` };
