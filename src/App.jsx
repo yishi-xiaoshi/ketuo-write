@@ -16,7 +16,7 @@ import './index.css';
 // 注意：此 Key 仅用于演示，生产环境请使用服务端代理
 const SILICONFLOW_API_KEY = 'sk-ueuytromhuhrpcgyijkzymzqgigbkgknmfaqkazcfipmvjgl';
 const SILICONFLOW_API_URL = 'https://api.siliconflow.cn/v1/chat/completions';
-const SILICONFLOW_MODEL = 'deepseek-ai/DeepSeek-V2.5';
+const SILICONFLOW_MODEL = 'deepseek-ai/DeepSeek-V3';
 
 async function callSiliconFlow(messages) {
   // 尝试非流式（避免 CORS 问题）
