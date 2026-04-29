@@ -1266,6 +1266,15 @@ function ModuleCustomTopic({ onIncrementEssays, onTopicAnalyzed }) {
     } catch {}
   };
 
+  // ─── 辅助函数：生成完整题目文本 ─────────────────────────────
+  // 材料作文需要把 title + hint（材料内容+要求）合并传给分析
+  const buildFullTopic = (item) => {
+    if (item.hint) {
+      return `${item.title}\n${item.hint}`;
+    }
+    return item.title;
+  };
+
   const startAnalysis = async (selectedTitle, sampleId = null) => {
     const title = selectedTitle || topic;
     if (!title.trim()) { setError('请输入写作题目'); return; }
@@ -1371,8 +1380,11 @@ function ModuleCustomTopic({ onIncrementEssays, onTopicAnalyzed }) {
   };
 
   const handleTopicClick = (item) => {
-    setTopic(item.title);
-    startAnalysis(item.title, item.id);
+    // 材料作文：textarea显示完整题目文本（标题+材料+要求）
+    // 命题/半命题：只显示标题
+    const fullTopic = buildFullTopic(item);
+    setTopic(fullTopic);
+    startAnalysis(fullTopic, item.id);
   };
 
   const pauseAnalysis = () => {
