@@ -542,10 +542,4 @@ export const MATERIALS = {
   ],
 };
 
-// ─── AI API 配置提示 ──────────────────────────────────────────
-export const API_CONFIG = {
-  defaultModel: 'deepseek-chat',
-  systemPrompt: `你是一位专业的可拓学写作指导老师，擅长运用可拓学七把钥匙（可拓建模、发散树、相关网、蕴含系、分合链、共轭部、变换法）指导中学生写作。请用专业、生动、鼓励的语言回复学生的问题。回复要结构清晰，适当使用emoji增加趣味性。`,
-  temperature: 0.7,
-  maxTokens: 2000,
-};
+
