@@ -761,6 +761,8 @@ function ModuleWritingApp({ onIncrementEssays }) {
   const [cacheMap, setCacheMap] = useState({});
   const [activeFilter, setActiveFilter] = useState('全部');
   const [isPaused, setIsPaused] = useState(false);
+  const [selectedAngle, setSelectedAngle] = useState(null);
+  const [angleOptions, setAngleOptions] = useState([]);
 
   // 分类筛选
   const filters = ['全部', '记叙文', '写人记叙文', '写景抒情', '议论文', '抒情散文', '叙事散文'];
