@@ -1159,6 +1159,68 @@ function ModuleWritingApp({ onIncrementEssays }) {
             );
           })}
 
+          {/* 第四步完成后：立意方向选择 */}
+          {results[4] && !results[5] && angleOptions.length > 0 && (
+            <div style={{
+              background: 'rgba(91,127,255,0.08)',
+              border: '1px solid rgba(91,127,255,0.2)',
+              borderRadius: '12px',
+              padding: '20px',
+              marginTop: '20px'
+            }}>
+              <div style={{ marginBottom: '16px', textAlign: 'center' }}>
+                <div style={{ color: '#5b7fff', fontSize: '14px', fontWeight: 600, marginBottom: '4px' }}>
+                  ✨ 请选择一个立意方向
+                </div>
+                <div style={{ color: 'rgba(232,224,200,0.5)', fontSize: '12px' }}>
+                  选择后系统将根据该方向为你生成专属范文
+                </div>
+              </div>
+              
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                {angleOptions.map((angle, idx) => (
+                  <div
+                    key={idx}
+                    onClick={() => !loading && continueWithAngle(angle)}
+                    style={{
+                      padding: '14px 16px',
+                      background: loading ? 'rgba(255,255,255,0.03)' : 'rgba(255,255,255,0.06)',
+                      border: `1px solid ${selectedAngle?.label === angle.label ? '#5b7fff' : 'rgba(255,255,255,0.1)'}`,
+                      borderRadius: '10px',
+                      cursor: loading ? 'not-allowed' : 'pointer',
+                      transition: 'all 0.2s',
+                      opacity: loading ? 0.5 : 1,
+                    }}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
+                      <div style={{
+                        width: '20px', height: '20px', borderRadius: '50%',
+                        background: '#5b7fff',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        color: '#fff', fontSize: '10px', fontWeight: 700
+                      }}>{angle.label.replace('立意方向', '')}</div>
+                      <div style={{ color: '#fff', fontSize: '13px', fontWeight: 600 }}>
+                        {angle.name}
+                      </div>
+                    </div>
+                    {angle.hook && (
+                      <div style={{ color: 'rgba(232,224,200,0.6)', fontSize: '11px', fontStyle: 'italic', paddingLeft: '28px' }}>
+                        "{angle.hook.slice(0, 60)}{angle.hook.length > 60 ? '...' : ''}"
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+              
+              {loading && loadingStep === 5 && (
+                <div style={{ textAlign: 'center', marginTop: '16px', color: 'rgba(232,224,200,0.5)', fontSize: '12px' }}>
+                  <Loader2 size={16} className="spin" style={{ display: 'inline', marginRight: '6px' }} />
+                  正在根据你的选择生成专属范文...
+                </div>
+              )}
+            </div>
+          )}
+
           {/* 步骤按钮 */}
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px' }}>
             {[1, 2, 3, 4, 5].map(n => {
@@ -1220,6 +1282,8 @@ function ModuleCustomTopic({ onIncrementEssays, onTopicAnalyzed }) {
   const [isPaused, setIsPaused] = useState(false);
   const [currentTopicId, setCurrentTopicId] = useState(null);
   const [isFromCache, setIsFromCache] = useState(false);
+  const [selectedAngle, setSelectedAngle] = useState(null); // 用户选择的立意方向
+  const [angleOptions, setAngleOptions] = useState([]); // 第四步解析出的立意方向选项
 
   // 加载示例题目缓存
   const [sampleCache, setSampleCache] = useState(() => {
@@ -1343,7 +1407,7 @@ function ModuleCustomTopic({ onIncrementEssays, onTopicAnalyzed }) {
       
       if (isPaused) return;
       
-      // 步骤4：可拓变换
+      // 步骤4：可拓变换 - 完成后暂停，让用户选择立意方向
       setLoadingStep(4);
       const step4 = FIVE_STEPS[3];
       const userMsg4 = { role: 'user', content: `${FIVE_STEPS[0].name}结果：\n${result1}\n\n${FIVE_STEPS[1].name}结果：\n${result2}\n\n${FIVE_STEPS[2].name}结果：\n${result3}\n\n${'─'.repeat(20)}\n\n${step4.prompt(title)}` };
@@ -1353,22 +1417,71 @@ function ModuleCustomTopic({ onIncrementEssays, onTopicAnalyzed }) {
       setCurrentStep(4);
       saveToMyBank(topicId, title, newResults);
       
-      if (isPaused) return;
+      // 解析立意方向选项供用户选择
+      const angles = parseAngleOptions(result4);
+      setAngleOptions(angles);
       
-      // 步骤5：收敛成文
-      setLoadingStep(5);
+      // 暂停，等待用户选择立意方向
+      setLoading(false);
+      setLoadingStep(null);
+      return; // 不继续执行，等用户选择
+    } catch (e) {
+      setError('AI 生成失败：' + e.message);
+      setLoading(false);
+      setLoadingStep(null);
+    }
+  };
+
+  // 解析第四步结果中的立意方向选项
+  const parseAngleOptions = (text) => {
+    const options = [];
+    // 匹配【立意方向A/B/C】格式
+    const angleRegex = /【立意方向([ABC])】\s*[\s\S]*?(?【立意方向|$)/g;
+    let match;
+    while ((match = angleRegex.exec(text)) !== null) {
+      const block = match[0];
+      const label = `立意方向${match[1]}`;
+      // 提取方向名称
+      const nameMatch = block.match(/方向名称[：:]\s*\[?([^\]\n-]+)/);
+      const name = nameMatch ? nameMatch[1].trim() : label;
+      // 提取开头句
+      const hookMatch = block.match(/开头句示例[：:]\s*\[?([^\]\n]+)/);
+      const hook = hookMatch ? hookMatch[1].trim() : '';
+      options.push({ label, name, hook, raw: block.slice(0, 200) });
+    }
+    return options;
+  };
+
+  // 用户选择立意方向后，继续执行第五步
+  const continueWithAngle = async (angle) => {
+    if (!topic || !currentTopicId) return;
+    setLoading(true);
+    setSelectedAngle(angle);
+    setLoadingStep(5);
+    
+    try {
+      const systemMsg = { role: 'system', content: API_CONFIG.systemPrompt };
+      const title = topic;
+      const result4 = results[4] || '';
+      const result1 = results[1] || '';
+      const result2 = results[2] || '';
+      const result3 = results[3] || '';
+      
       const step5 = FIVE_STEPS[4];
-      const userMsg5 = { role: 'user', content: `${FIVE_STEPS[0].name}结果：\n${result1}\n\n${FIVE_STEPS[1].name}结果：\n${result2}\n\n${FIVE_STEPS[2].name}结果：\n${result3}\n\n${FIVE_STEPS[3].name}结果：\n${result4}\n\n${'─'.repeat(20)}\n\n${step5.prompt(title)}` };
+      const angleContext = `\n【立意方向选择】\n${angle.label}：${angle.name}\n${angle.hook ? `开头句：${angle.hook}` : ''}\n\n请根据以上选定的立意方向进行写作。`;
+      
+      const userMsg5 = { role: 'user', content: `${FIVE_STEPS[0].name}结果：\n${result1}\n\n${FIVE_STEPS[1].name}结果：\n${result2}\n\n${FIVE_STEPS[2].name}结果：\n${result3}\n\n${FIVE_STEPS[3].name}结果：\n${result4}\n\n${'─'.repeat(20)}\n\n${step5.prompt(title, angleContext)}` };
       const result5 = await callAI([systemMsg, userMsg5]);
-      newResults[5] = result5;
-      setResults({ ...newResults });
+      const newResults = { ...results, 5: result5 };
+      setResults(newResults);
       setCurrentStep(5);
-      saveToMyBank(topicId, title, newResults);
+      saveToMyBank(currentTopicId, title, newResults);
       
       // 如果是示例题目，同时保存到示例题缓存
+      const sampleId = SAMPLE_TOPICS.find(t => buildFullTopic(t) === topic)?.id;
       if (sampleId) {
-        saveCache(`sample_${sampleId}`, { results: newResults, currentStep: 5 });
-        setSampleCache(prev => ({ ...prev, [sampleId]: { results: newResults, currentStep: 5 } }));
+        saveCache(`sample_${sampleId}`, { results: newResults, currentStep: 5, selectedAngle: angle });
+        setSampleCache(prev => ({ ...prev, [sampleId]: { results: newResults, currentStep: 5, selectedAngle: angle } }));
       }
       
       onIncrementEssays();
