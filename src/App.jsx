@@ -1438,7 +1438,7 @@ function ModuleCustomTopic({ onIncrementEssays, onTopicAnalyzed }) {
   const parseAngleOptions = (text) => {
     const options = [];
     // 匹配【立意方向A/B/C】格式
-    const angleRegex = /【立意方向([ABC])】\s*[\s\S]*?(?【立意方向|$)/g;
+    const angleRegex = /【立意方向([ABC])】[\s\S]*?(?=\n【立意方向|\n$)/g;
     let match;
     while ((match = angleRegex.exec(text)) !== null) {
       const block = match[0];
