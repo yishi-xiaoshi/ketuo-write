@@ -1447,7 +1447,7 @@ function ModuleCustomTopic({ onIncrementEssays, onTopicAnalyzed }) {
       const result4 = await callAI([systemMsg, userMsg4]);
       newResults[4] = result4;
       setResults({ ...newResults });
-      setCurrentStep(4);
+      setCurrentStep(5); // 设为5使第四步显示完成✓，第五步显示进行中
       saveToMyBank(topicId, title, newResults);
       
       // 解析立意方向选项供用户选择
