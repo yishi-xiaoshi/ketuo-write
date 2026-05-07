@@ -1501,9 +1501,9 @@ function ModuleCustomTopic({ onIncrementEssays, onTopicAnalyzed }) {
       const result3 = results[3] || '';
       
       const step5 = FIVE_STEPS[4];
-      const angleContext = `\n【立意方向选择】\n${angle.label}：${angle.name}\n${angle.hook ? `开头句：${angle.hook}` : ''}\n\n请根据以上选定的立意方向进行写作。`;
+      const angleContext = `【用户选择的立意方向】\n${angle.label}：${angle.name}\n${angle.hook ? `推荐开头句：${angle.hook}` : ''}`;
       
-      const userMsg5 = { role: 'user', content: `${FIVE_STEPS[0].name}结果：\n${result1}\n\n${FIVE_STEPS[1].name}结果：\n${result2}\n\n${FIVE_STEPS[2].name}结果：\n${result3}\n\n${FIVE_STEPS[3].name}结果：\n${result4}\n\n${'─'.repeat(20)}\n\n${step5.prompt(title, angleContext)}` };
+      const userMsg5 = { role: 'user', content: `题目是："${title}"\n\n${FIVE_STEPS[0].name}结果：\n${result1}\n\n${FIVE_STEPS[1].name}结果：\n${result2}\n\n${FIVE_STEPS[2].name}结果：\n${result3}\n\n${FIVE_STEPS[3].name}结果：\n${result4}\n\n${'─'.repeat(20)}\n\n${step5.prompt(title, angleContext)}` };
       const result5 = await callAI([systemMsg, userMsg5]);
       const newResults = { ...results, 5: result5 };
       setResults(newResults);
