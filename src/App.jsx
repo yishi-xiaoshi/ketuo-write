@@ -1162,7 +1162,7 @@ function ModuleWritingApp({ onIncrementEssays }) {
           })}
 
           {/* 第四步完成后：立意方向选择 */}
-          {results[4] && !results[5] && angleOptions.length > 0 && (
+          {results[4] && !results[5] && (
             <div style={{
               background: 'rgba(91,127,255,0.08)',
               border: '1px solid rgba(91,127,255,0.2)',
@@ -1170,54 +1170,85 @@ function ModuleWritingApp({ onIncrementEssays }) {
               padding: '20px',
               marginTop: '20px'
             }}>
-              <div style={{ marginBottom: '16px', textAlign: 'center' }}>
-                <div style={{ color: '#5b7fff', fontSize: '14px', fontWeight: 600, marginBottom: '4px' }}>
-                  ✨ 请选择一个立意方向
-                </div>
-                <div style={{ color: 'rgba(232,224,200,0.5)', fontSize: '12px' }}>
-                  选择后系统将根据该方向为你生成专属范文
-                </div>
-              </div>
-              
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                {angleOptions.map((angle, idx) => (
-                  <div
-                    key={idx}
-                    onClick={() => !loading && continueWithAngle(angle)}
+              {angleOptions.length > 0 ? (
+                <>
+                  <div style={{ marginBottom: '16px', textAlign: 'center' }}>
+                    <div style={{ color: '#5b7fff', fontSize: '14px', fontWeight: 600, marginBottom: '4px' }}>
+                      ✨ 请选择一个立意方向
+                    </div>
+                    <div style={{ color: 'rgba(232,224,200,0.5)', fontSize: '12px' }}>
+                      选择后系统将根据该方向为你生成专属范文
+                    </div>
+                  </div>
+                  
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                    {angleOptions.map((angle, idx) => (
+                      <div
+                        key={idx}
+                        onClick={() => !loading && continueWithAngle(angle)}
+                        style={{
+                          padding: '14px 16px',
+                          background: loading ? 'rgba(255,255,255,0.03)' : 'rgba(255,255,255,0.06)',
+                          border: `1px solid ${selectedAngle?.label === angle.label ? '#5b7fff' : 'rgba(255,255,255,0.1)'}`,
+                          borderRadius: '10px',
+                          cursor: loading ? 'not-allowed' : 'pointer',
+                          transition: 'all 0.2s',
+                          opacity: loading ? 0.5 : 1,
+                        }}
+                      >
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
+                          <div style={{
+                            width: '20px', height: '20px', borderRadius: '50%',
+                            background: '#5b7fff',
+                            display: 'flex', alignItems: 'center', justifyContent: 'center',
+                            color: '#fff', fontSize: '10px', fontWeight: 700
+                          }}>{angle.label.replace('立意方向', '')}</div>
+                          <div style={{ color: '#fff', fontSize: '13px', fontWeight: 600 }}>
+                            {angle.name}
+                          </div>
+                        </div>
+                        {angle.hook && (
+                          <div style={{ color: 'rgba(232,224,200,0.6)', fontSize: '11px', fontStyle: 'italic', paddingLeft: '28px' }}>
+                            "{angle.hook.slice(0, 60)}{angle.hook.length > 60 ? '...' : ''}"
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </>
+              ) : (
+                /* 解析失败时的容错方案 */
+                <div style={{ textAlign: 'center' }}>
+                  <div style={{ color: '#fbbf24', fontSize: '14px', fontWeight: 600, marginBottom: '8px' }}>
+                    ⚠️ 未检测到明确的立意方向划分
+                  </div>
+                  <div style={{ color: 'rgba(232,224,200,0.5)', fontSize: '12px', marginBottom: '16px' }}>
+                    你可以选择直接生成范文，或查看第4步结果后手动调整
+                  </div>
+                  <button
+                    onClick={() => !loading && continueWithAngle({ label: '自动', name: 'AI推荐方向', hook: '' })}
+                    disabled={loading}
                     style={{
-                      padding: '14px 16px',
-                      background: loading ? 'rgba(255,255,255,0.03)' : 'rgba(255,255,255,0.06)',
-                      border: `1px solid ${selectedAngle?.label === angle.label ? '#5b7fff' : 'rgba(255,255,255,0.1)'}`,
-                      borderRadius: '10px',
+                      padding: '10px 24px',
+                      background: loading ? 'rgba(91,127,255,0.3)' : 'rgba(91,127,255,0.6)',
+                      border: '1px solid rgba(91,127,255,0.5)',
+                      borderRadius: '8px',
+                      color: '#fff',
+                      fontSize: '13px',
+                      fontWeight: 600,
                       cursor: loading ? 'not-allowed' : 'pointer',
-                      transition: 'all 0.2s',
                       opacity: loading ? 0.5 : 1,
                     }}
                   >
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
-                      <div style={{
-                        width: '20px', height: '20px', borderRadius: '50%',
-                        background: '#5b7fff',
-                        display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        color: '#fff', fontSize: '10px', fontWeight: 700
-                      }}>{angle.label.replace('立意方向', '')}</div>
-                      <div style={{ color: '#fff', fontSize: '13px', fontWeight: 600 }}>
-                        {angle.name}
-                      </div>
-                    </div>
-                    {angle.hook && (
-                      <div style={{ color: 'rgba(232,224,200,0.6)', fontSize: '11px', fontStyle: 'italic', paddingLeft: '28px' }}>
-                        "{angle.hook.slice(0, 60)}{angle.hook.length > 60 ? '...' : ''}"
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
+                    {loading ? '生成中...' : '🚀 直接生成范文'}
+                  </button>
+                </div>
+              )}
               
               {loading && loadingStep === 5 && (
                 <div style={{ textAlign: 'center', marginTop: '16px', color: 'rgba(232,224,200,0.5)', fontSize: '12px' }}>
                   <Loader2 size={16} className="spin" style={{ display: 'inline', marginRight: '6px' }} />
-                  正在根据你的选择生成专属范文...
+                  正在生成范文...
                 </div>
               )}
             </div>
@@ -1434,20 +1465,20 @@ function ModuleCustomTopic({ onIncrementEssays, onTopicAnalyzed }) {
     }
   };
 
-  // 解析第四步结果中的立意方向选项
+  // 解析第四步结果中的立意方向选项（增强容错版）
   const parseAngleOptions = (text) => {
     const options = [];
-    // 匹配【立意方向A/B/C】格式
-    const angleRegex = /【立意方向([ABC])】[\s\S]*?(?=\n【立意方向|\n$)/g;
+    // 支持多种格式：【立意方向A】、【立意方向 A】、甚至【立意A】
+    const angleRegex = /【立意方向\s*([ABC])\s*】[\s\S]*?(?=\n【立意方向|\n$)/gi;
     let match;
     while ((match = angleRegex.exec(text)) !== null) {
       const block = match[0];
-      const label = `立意方向${match[1]}`;
-      // 提取方向名称
-      const nameMatch = block.match(/方向名称[：:]\s*\[?([^\]\n-]+)/);
+      const label = `立意方向${match[1].toUpperCase()}`;
+      // 提取方向名称（支持多种格式）
+      const nameMatch = block.match(/方向名称[：:\s]*[【】]?([^【\n]{2,40})/);
       const name = nameMatch ? nameMatch[1].trim() : label;
       // 提取开头句
-      const hookMatch = block.match(/开头句示例[：:]\s*\[?([^\]\n]+)/);
+      const hookMatch = block.match(/开头句示例[：:\s]*[【】]?([^【\n]{5,100})/);
       const hook = hookMatch ? hookMatch[1].trim() : '';
       options.push({ label, name, hook, raw: block.slice(0, 200) });
     }
